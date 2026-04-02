@@ -1,0 +1,1097 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Happy Birthday Arriya 💗</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=Cinzel:wght@400;600;700&family=IM+Fell+English:ital@0;1&display=swap" rel="stylesheet">
+<style>
+/* ===== AUTHENTIC GENSHIN COLOR VARIABLES ===== */
+:root {
+  /* Genshin's actual UI palette */
+  --pyro: #e2613c;
+  --pyro-glow: #ff9060;
+  --pyro-dark: #7a2210;
+
+  /* Genshin gold — brighter, cleaner */
+  --gold: #f0c060;
+  --gold-light: #FFD780;
+  --gold-pale: #fff8e7;
+  --gold-dim: #c8a040;
+
+  /* Genshin panel backgrounds — navy/dark blue-grey, NOT black */
+  --bg-deep: #0e1420;
+  --bg-mid: #131c2e;
+  --bg-panel: #1a2540;
+  --bg-card: #1e2d4a;
+
+  /* Genshin text */
+  --text-main: #f0ead8;
+  --text-muted: #a8b8d0;
+  --text-light: #d8e8ff;
+
+  /* Star colors */
+  --star5: #FFD700;
+  --star5-glow: #FFE066;
+
+  /* Wish screen — deep midnight purple/blue */
+  --wish-bg: #080c18;
+  --wish-mid: #0d1428;
+  --wish-accent: #3a2060;
+
+  /* UI borders */
+  --border-gold: rgba(240,192,96,0.45);
+  --border-blue: rgba(120,160,220,0.3);
+  --panel-bg: rgba(14,20,36,0.92);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: 'Cinzel', serif;
+  background: var(--bg-deep);
+  overflow: hidden;
+  height: 100vh;
+  width: 100vw;
+}
+
+/* ===== CANVAS ===== */
+#particleCanvas {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ===== SCREENS ===== */
+.screen {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 40px 24px;
+  opacity: 0;
+  pointer-events: none;
+  z-index: 1;
+  transition: opacity 1.2s ease;
+}
+.screen.active { opacity: 1; pointer-events: auto; }
+
+/* Genshin-style gradient background */
+.screen::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 70% 50% at 50% 0%, rgba(58,32,96,0.4) 0%, transparent 65%),
+    radial-gradient(ellipse 50% 40% at 80% 100%, rgba(240,192,96,0.08) 0%, transparent 60%),
+    radial-gradient(ellipse 100% 100% at 50% 50%, #131c2e 0%, #0e1420 100%);
+  z-index: -1;
+}
+
+/* ===== GENSHIN FRAME — parchment/navy style ===== */
+.frame {
+  position: absolute;
+  inset: 16px;
+  border: 1px solid rgba(240,192,96,0.18);
+  pointer-events: none;
+}
+.frame::before, .frame::after {
+  content: '';
+  position: absolute;
+  width: 44px; height: 44px;
+  border-color: var(--gold);
+  border-style: solid;
+  opacity: 0.7;
+}
+.frame::before { top: -1px; left: -1px; border-width: 2px 0 0 2px; }
+.frame::after  { bottom: -1px; right: -1px; border-width: 0 2px 2px 0; }
+.frame-tl { position:absolute; top:-1px; right:-1px; width:44px; height:44px; border:2px solid var(--gold); border-width:2px 2px 0 0; opacity:0.7; }
+.frame-br { position:absolute; bottom:-1px; left:-1px; width:44px; height:44px; border:2px solid var(--gold); border-width:0 0 2px 2px; opacity:0.7; }
+
+/* ===== VISION BADGE ===== */
+.vision-badge {
+  width: 68px; height: 68px;
+  margin-bottom: 20px;
+  animation: visionPulse 3s ease-in-out infinite;
+}
+.vision-badge svg { width: 100%; height: 100%; }
+@keyframes visionPulse {
+  0%,100% { filter: drop-shadow(0 0 10px var(--pyro-glow)); transform: scale(1); }
+  50%      { filter: drop-shadow(0 0 24px var(--pyro-glow)); transform: scale(1.06); }
+}
+
+/* ===== SCREEN 1 ===== */
+#screen1 .main-title {
+  font-family: 'Cinzel Decorative', cursive;
+  font-size: clamp(1.8rem, 5vw, 3.8rem);
+  color: var(--gold-light);
+  text-align: center;
+  line-height: 1.35;
+  letter-spacing: 0.04em;
+  text-shadow: 0 0 40px rgba(240,192,96,0.45), 0 2px 4px rgba(0,0,0,0.8);
+  max-width: 800px;
+}
+#screen1 .subtitle {
+  margin-top: 18px;
+  font-family: 'IM Fell English', serif;
+  font-style: italic;
+  color: var(--text-muted);
+  font-size: clamp(0.88rem, 1.8vw, 1.05rem);
+  text-align: center;
+  max-width: 520px;
+  line-height: 1.9;
+}
+.divider {
+  width: 300px; height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold-dim), transparent);
+  margin: 26px auto;
+  position: relative;
+}
+.divider::before {
+  content: '✦';
+  position: absolute; left: 50%; top: 50%;
+  transform: translate(-50%,-50%);
+  color: var(--gold); font-size: 13px;
+  background: var(--bg-mid); padding: 0 8px;
+}
+
+/* ===== GENSHIN BUTTON ===== */
+.genshin-btn {
+  position: relative;
+  margin-top: 32px;
+  padding: 13px 48px;
+  background: linear-gradient(135deg, #1a2540, #253560);
+  border: 1px solid var(--gold-dim);
+  color: var(--gold-light);
+  font-family: 'Cinzel', serif;
+  font-size: 0.88rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  cursor: pointer;
+  clip-path: polygon(14px 0%, calc(100% - 14px) 0%, 100% 50%, calc(100% - 14px) 100%, 14px 100%, 0% 50%);
+  transition: all 0.3s ease;
+  overflow: hidden;
+}
+.genshin-btn::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: linear-gradient(135deg, transparent 40%, rgba(240,192,96,0.12));
+  opacity: 0; transition: opacity 0.3s;
+}
+.genshin-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 0 28px rgba(240,192,96,0.35);
+  border-color: var(--gold-light);
+  background: linear-gradient(135deg, #253560, #2e4080);
+}
+.genshin-btn:hover::before { opacity: 1; }
+.genshin-btn:disabled { opacity: 0.45; cursor: not-allowed; }
+
+/* ===== SCREEN 2 — CAKE ===== */
+#screen2 .hutao-wrap img {
+  width: min(340px, 60vw);
+  filter: drop-shadow(0 0 30px rgba(226,97,60,0.25));
+  transition: all 0.6s ease;
+}
+
+.cake-wrap {
+  position: relative;
+  width: min(280px, 70vw);
+  height: 220px;
+  animation: floatCake 3s ease-in-out infinite;
+}
+@keyframes floatCake {
+  0%,100% { transform: translateY(0); }
+  50%      { transform: translateY(-8px); }
+}
+.cake-body {
+  position: absolute; bottom: 0; left: 50%;
+  transform: translateX(-50%);
+  width: 200px; height: 100px;
+  background: linear-gradient(180deg, #1e2d4a 0%, #2a3d60 50%, #1e2d4a 100%);
+  border-radius: 18px 18px 28px 28px;
+  border: 1px solid var(--border-gold);
+  box-shadow: 0 10px 40px rgba(240,192,96,0.1), inset 0 1px 0 rgba(240,192,96,0.25);
+}
+.cake-body::after {
+  content: '';
+  position: absolute; top: 20px; left: 16px; right: 16px; height: 2px;
+  background: linear-gradient(90deg, transparent, rgba(240,192,96,0.5), transparent);
+}
+.cake-top {
+  position: absolute; bottom: 88px; left: 50%;
+  transform: translateX(-50%);
+  width: 200px; height: 44px;
+  background: #e8d8b0;
+  border-radius: 50%;
+  box-shadow: inset 0 -8px 0 #c8a840, 0 0 20px rgba(240,192,96,0.2);
+  z-index: 2;
+}
+.candle-stick {
+  position: absolute; bottom: 130px; left: 50%;
+  transform: translateX(-50%);
+  width: 13px; height: 52px;
+  background: repeating-linear-gradient(45deg, #fff 0, #fff 5px, #e2613c 5px, #e2613c 10px);
+  border-radius: 5px; z-index: 3;
+}
+.flame-wrap {
+  position: absolute; top: -36px; left: 50%;
+  transform: translateX(-50%);
+  width: 20px; height: 32px;
+  transition: opacity 0.6s, transform 0.6s;
+}
+.flame-outer {
+  position: absolute; inset: 0;
+  background: radial-gradient(circle at 50% 30%, #fff8c4, #ffd35f 40%, #ff8a00 70%, transparent);
+  border-radius: 50% 50% 35% 35% / 60% 60% 40% 40%;
+  animation: flameWave 0.35s ease-in-out infinite alternate;
+  filter: drop-shadow(0 0 12px rgba(255,140,0,0.9));
+}
+.flame-inner {
+  position: absolute; inset: 4px 5px; bottom: 6px;
+  background: radial-gradient(circle at 50% 40%, #fff, #ffeaa0 60%, transparent);
+  border-radius: 50% 50% 35% 35% / 60% 60% 40% 40%;
+  animation: flameWave 0.35s ease-in-out infinite alternate-reverse;
+}
+@keyframes flameWave {
+  from { transform: scaleX(1) scaleY(1) rotate(-2deg); }
+  to   { transform: scaleX(0.87) scaleY(1.12) rotate(2deg); }
+}
+.blow-note {
+  font-family: 'IM Fell English', serif; font-style: italic;
+  color: var(--text-muted); font-size: 0.82rem;
+  text-align: center; margin-top: 10px; max-width: 380px;
+}
+
+/* ===== WISH ANIMATION SCREEN — full Genshin-style ===== */
+#screen3 {
+  background: #000;
+  overflow: hidden;
+}
+#screen3::before { background: #000; }
+
+/* Starfield base */
+.wish-starfield {
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse 100% 100% at 50% 50%, #0a0c1a 0%, #040608 100%);
+  z-index: 0;
+}
+
+/* Genshin wish — the sweeping golden light from bottom */
+.wish-light-sweep {
+  position: absolute;
+  bottom: -20%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 160%;
+  height: 120%;
+  background: conic-gradient(
+    from 270deg at 50% 100%,
+    transparent 30%,
+    rgba(240,192,96,0.06) 45%,
+    rgba(255,220,120,0.18) 50%,
+    rgba(240,192,96,0.06) 55%,
+    transparent 70%
+  );
+  opacity: 0;
+  z-index: 1;
+  transition: opacity 0.8s ease;
+}
+.wish-light-sweep.active { opacity: 1; }
+
+/* Wish orb — the glowing ball that appears first */
+.wish-orb {
+  position: absolute;
+  width: 120px; height: 120px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 35%,
+    rgba(255,240,200,0.95),
+    rgba(255,200,80,0.8) 30%,
+    rgba(200,120,40,0.6) 60%,
+    rgba(100,60,20,0.2) 80%,
+    transparent
+  );
+  box-shadow:
+    0 0 40px rgba(255,200,80,0.8),
+    0 0 80px rgba(255,160,40,0.5),
+    0 0 160px rgba(200,120,40,0.3);
+  z-index: 5;
+  opacity: 0;
+  transform: scale(0);
+  transition: none;
+}
+
+/* Wish ribbon trails */
+.wish-ribbon {
+  position: absolute;
+  width: 3px;
+  border-radius: 999px;
+  background: linear-gradient(180deg, transparent, var(--gold-light), rgba(255,220,120,0.6), transparent);
+  transform-origin: bottom center;
+  opacity: 0;
+  z-index: 3;
+}
+
+/* Genshin burst rings */
+.wish-ring {
+  position: absolute;
+  border-radius: 50%;
+  border: 2px solid rgba(240,192,96,0.6);
+  opacity: 0;
+  z-index: 4;
+  pointer-events: none;
+}
+
+/* Character reveal panel */
+.wish-reveal-wrap {
+  position: absolute; inset: 0;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  z-index: 10;
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Background splash art — like Genshin's colored background on wish */
+.wish-splash-bg {
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse 90% 70% at 50% 50%,
+    rgba(60,30,10,0.7) 0%,
+    rgba(30,10,5,0.9) 50%,
+    rgba(10,5,2,0.98) 100%
+  );
+  opacity: 0;
+}
+
+/* The actual card that slides up */
+.wish-card-outer {
+  position: relative;
+  transform: translateY(60px) scale(0.85);
+  opacity: 0;
+  transition: transform 0.9s cubic-bezier(0.22, 1, 0.36, 1),
+              opacity 0.7s ease;
+}
+.wish-card-outer.show {
+  transform: translateY(0) scale(1);
+  opacity: 1;
+}
+
+.wish-card {
+  position: relative;
+  width: min(360px, 88vw);
+  background: linear-gradient(160deg, #1a2540 0%, #0e1828 40%, #0c1420 100%);
+  border: 1px solid var(--gold-dim);
+  border-radius: 4px;
+  padding: 32px 28px 28px;
+  box-shadow:
+    0 0 50px rgba(240,192,96,0.2),
+    0 0 100px rgba(226,97,60,0.1),
+    inset 0 1px 0 rgba(240,192,96,0.35);
+  overflow: hidden;
+}
+
+/* Genshin shimmer */
+.wish-card::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: linear-gradient(105deg,
+    transparent 20%,
+    rgba(240,192,96,0.06) 30%,
+    rgba(255,230,140,0.14) 45%,
+    rgba(240,192,96,0.06) 60%,
+    transparent 70%
+  );
+  animation: shimmer 3.5s linear infinite;
+}
+@keyframes shimmer {
+  from { transform: translateX(-100%) skewX(-15deg); }
+  to   { transform: translateX(200%) skewX(-15deg); }
+}
+.wish-card::after {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0; height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold-light), transparent);
+}
+
+.wish-corner-gem {
+  position: absolute; width: 8px; height: 8px;
+  background: var(--gold); transform: rotate(45deg);
+}
+.wish-corner-gem.tl { top:-4px; left:-4px; }
+.wish-corner-gem.tr { top:-4px; right:-4px; }
+.wish-corner-gem.bl { bottom:-4px; left:-4px; }
+.wish-corner-gem.br { bottom:-4px; right:-4px; }
+
+.wish-new-badge {
+  position: absolute; top: 14px; right: 14px;
+  background: linear-gradient(135deg, var(--pyro), var(--pyro-dark));
+  color: #fff; font-size: 0.62rem; font-weight: 700;
+  letter-spacing: 0.1em; padding: 3px 10px;
+  border-radius: 2px; text-transform: uppercase;
+  border: 1px solid rgba(255,255,255,0.15);
+}
+
+.wish-rarity {
+  display: flex; justify-content: center; gap: 5px; margin-bottom: 14px;
+}
+.wish-rarity span {
+  color: var(--star5); font-size: 17px;
+  animation: starPop 0.4s ease backwards;
+  text-shadow: 0 0 12px var(--star5-glow);
+}
+.wish-rarity span:nth-child(1){animation-delay:0.1s}
+.wish-rarity span:nth-child(2){animation-delay:0.2s}
+.wish-rarity span:nth-child(3){animation-delay:0.3s}
+.wish-rarity span:nth-child(4){animation-delay:0.4s}
+.wish-rarity span:nth-child(5){animation-delay:0.5s}
+@keyframes starPop {
+  from { opacity:0; transform:scale(0) rotate(-30deg); }
+  to   { opacity:1; transform:scale(1) rotate(0deg); }
+}
+
+.wish-element-icon { text-align:center; font-size:46px; margin-bottom:10px; animation:elementReveal 0.6s ease backwards 0.3s; filter:drop-shadow(0 0 14px var(--pyro-glow)); }
+@keyframes elementReveal {
+  from { opacity:0; transform:scale(1.8); filter:blur(8px); }
+  to   { opacity:1; transform:scale(1); }
+}
+
+.wish-type { font-family:'IM Fell English',serif; font-style:italic; color:var(--text-muted); text-align:center; font-size:0.78rem; letter-spacing:0.15em; text-transform:uppercase; margin-bottom:5px; }
+.wish-name { font-family:'Cinzel Decorative',cursive; font-size:clamp(1.2rem,3.5vw,1.8rem); color:var(--gold-light); text-align:center; text-shadow:0 0 20px rgba(240,192,96,0.6); margin-bottom:4px; }
+.wish-sub  { font-family:'IM Fell English',serif; font-style:italic; color:var(--pyro-glow); text-align:center; font-size:0.84rem; margin-bottom:18px; }
+.wish-divider-line { width:100%; height:1px; background:linear-gradient(90deg,transparent,rgba(240,192,96,0.4),transparent); margin:16px 0; }
+.wish-description { font-family:'IM Fell English',serif; color:var(--gold-pale); font-size:0.9rem; line-height:1.8; text-align:center; font-style:italic; }
+
+.wish-obtain {
+  margin-top: 20px;
+  font-family: 'Cinzel', serif; font-size: 0.75rem;
+  color: var(--text-muted); letter-spacing: 0.22em;
+  text-transform: uppercase; text-align: center;
+  opacity: 0; transition: opacity 0.8s ease 0.8s;
+}
+.wish-obtain.show { opacity: 1; }
+
+/* ===== SCREEN 4 — MESSAGE ===== */
+#screen4 .paimon-bubble {
+  position: absolute; top: 22px; left: 50%;
+  transform: translateX(-50%);
+  background: rgba(14,20,36,0.95);
+  border: 1px solid var(--border-gold);
+  border-radius: 4px; padding: 9px 20px;
+  font-family: 'IM Fell English', serif; font-style: italic;
+  color: var(--text-muted); font-size: 0.8rem;
+  white-space: nowrap; opacity: 0;
+  animation: paimonFloat 1s ease 0.5s forwards;
+}
+.paimon-bubble::before { content: '✦ Paimon says: '; color: var(--gold); }
+@keyframes paimonFloat {
+  from { opacity:0; transform:translateX(-50%) translateY(-10px); }
+  to   { opacity:1; transform:translateX(-50%) translateY(0); }
+}
+
+.message-panel {
+  width: min(90vw, 720px);
+  background: rgba(14,20,36,0.93);
+  border: 1px solid var(--border-gold);
+  border-radius: 4px;
+  padding: clamp(26px,5vw,46px);
+  position: relative;
+  box-shadow: 0 0 50px rgba(240,192,96,0.07), 0 0 100px rgba(58,32,96,0.12), inset 0 1px 0 rgba(240,192,96,0.18);
+  max-height: 75vh; overflow-y: auto;
+  scrollbar-width: thin; scrollbar-color: var(--gold-dim) transparent;
+}
+.message-panel::before {
+  content: '';
+  position: absolute; inset: 0; pointer-events: none;
+  background: repeating-linear-gradient(0deg, transparent, transparent 39px, rgba(240,192,96,0.03) 39px, rgba(240,192,96,0.03) 40px);
+}
+
+.panel-header { text-align:center; margin-bottom:26px; }
+.panel-header .label { font-size:0.68rem; letter-spacing:0.28em; color:var(--pyro-glow); text-transform:uppercase; margin-bottom:8px; }
+.panel-header h2 { font-family:'Cinzel Decorative',cursive; font-size:clamp(1.4rem,4vw,2.1rem); color:var(--gold-light); text-shadow:0 0 20px rgba(240,192,96,0.45); }
+
+#finalText { font-family:'IM Fell English',serif; font-style:italic; color:var(--gold-pale); font-size:clamp(0.9rem,1.9vw,1.04rem); line-height:2.05; white-space:pre-line; }
+
+.panel-footer { text-align:center; margin-top:26px; }
+.panel-footer .seal { display:inline-block; width:46px; height:46px; border:1px solid var(--gold-dim); border-radius:50%; line-height:44px; font-size:20px; color:var(--gold-dim); opacity:0.55; animation:sealSpin 20s linear infinite; }
+@keyframes sealSpin { from{transform:rotate(0deg)} to{transform:rotate(360deg)} }
+
+/* ===== STAR PARTICLES ===== */
+.star-particle {
+  position: fixed; border-radius: 50%;
+  pointer-events: none; z-index: 0;
+  animation: starDrift linear infinite;
+}
+@keyframes starDrift {
+  0%   { opacity: 0; transform: translateY(0) scale(0.5); }
+  10%  { opacity: 1; }
+  90%  { opacity: 0.4; }
+  100% { opacity: 0; transform: translateY(-90vh) scale(1.2); }
+}
+
+/* ===== EMBER ===== */
+.ember {
+  position: fixed; bottom: -10px; border-radius: 50%;
+  background: var(--pyro-glow); pointer-events: none; z-index: 0;
+  animation: emberRise linear infinite;
+  box-shadow: 0 0 6px var(--pyro-glow);
+}
+@keyframes emberRise {
+  0%   { transform: translateY(0) translateX(0) scale(1); opacity: 0.8; }
+  50%  { transform: translateY(-40vh) translateX(16px) scale(0.65); opacity: 0.5; }
+  100% { transform: translateY(-85vh) translateX(-8px) scale(0); opacity: 0; }
+}
+
+/* ===== LOADING ===== */
+#loadOverlay {
+  position: fixed; inset: 0; background: #040608; z-index: 1000;
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 20px;
+  transition: opacity 1s ease;
+}
+.load-logo { font-family:'Cinzel Decorative',cursive; font-size:clamp(1.3rem,4vw,2.2rem); color:var(--gold-light); text-align:center; letter-spacing:0.08em; text-shadow:0 0 30px rgba(240,192,96,0.5); }
+.load-bar-wrap { width:240px; height:2px; background:rgba(240,192,96,0.12); border-radius:999px; overflow:hidden; }
+.load-bar { height:100%; width:0%; background:linear-gradient(90deg,var(--pyro),var(--gold)); border-radius:999px; transition:width 1.8s cubic-bezier(0.4,0,0.2,1); box-shadow:0 0 10px var(--pyro-glow); }
+.load-sub { font-family:'IM Fell English',serif; font-style:italic; color:var(--text-muted); font-size:0.8rem; letter-spacing:0.1em; }
+
+/* ===== WIPE ===== */
+#wipe { position:fixed; inset:0; background:#000; z-index:500; opacity:0; pointer-events:none; transition:opacity 0.4s ease; }
+#wipe.wipe-in  { opacity:1; pointer-events:auto; }
+#wipe.wipe-out { opacity:0; pointer-events:none; }
+
+/* ===== CONFETTI ===== */
+.confetti-piece {
+  position: fixed; width:8px; height:8px; border-radius:2px;
+  pointer-events: none; z-index: 50;
+  animation: confettiFall linear forwards;
+}
+@keyframes confettiFall {
+  0%   { transform:translateY(0) rotate(0deg) translateX(0); opacity:1; }
+  100% { transform:translateY(100vh) rotate(720deg) translateX(var(--drift)); opacity:0; }
+}
+
+@media (max-width:480px) {
+  .genshin-btn { padding:12px 30px; font-size:0.78rem; }
+  .wish-card { padding:22px 18px 20px; }
+  #screen2 .hutao-wrap img { width:min(240px,68vw); }
+}
+</style>
+</head>
+<body>
+
+<canvas id="particleCanvas"></canvas>
+<div id="wipe"></div>
+
+<!-- LOADING -->
+<div id="loadOverlay">
+  <div class="load-logo">Teyvat Birthday Archives</div>
+  <div class="load-bar-wrap"><div class="load-bar" id="loadBar"></div></div>
+  <div class="load-sub">Loading traveler data...</div>
+</div>
+
+<!-- SCREEN 1: INTRO -->
+<div class="screen active" id="screen1">
+  <div class="frame"><div class="frame-tl"></div><div class="frame-br"></div></div>
+  <div class="vision-badge">
+    <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <radialGradient id="vg" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stop-color="#ffb080"/>
+          <stop offset="55%" stop-color="#e2613c"/>
+          <stop offset="100%" stop-color="#7a2210"/>
+        </radialGradient>
+      </defs>
+      <polygon points="32,4 42,22 62,26 48,40 52,60 32,50 12,60 16,40 2,26 22,22" fill="url(#vg)" stroke="#f0c060" stroke-width="1.5" opacity="0.92"/>
+      <polygon points="32,14 39,26 53,29 43,39 46,53 32,46 18,53 21,39 11,29 25,26" fill="rgba(255,160,100,0.2)"/>
+      <circle cx="32" cy="32" r="9" fill="rgba(255,210,160,0.3)" stroke="#ffd080" stroke-width="1"/>
+    </svg>
+  </div>
+  <p style="font-size:0.7rem;letter-spacing:0.3em;color:var(--pyro-glow);text-transform:uppercase;margin-bottom:10px;">Pyro Vision Holder</p>
+  <h1 class="main-title">A Rare Traveler<br>Has Appeared in Teyvat</h1>
+  <div class="divider"></div>
+  <p class="subtitle">Her designs ignite like Pyro, her gaming never falters,<br>and her sleep debt rivals the Abyss in depth.</p>
+  <button class="genshin-btn" onclick="goToScreen(2)">View Character ▶</button>
+</div>
+
+<!-- SCREEN 2: BLOW CANDLE -->
+<div class="screen" id="screen2">
+  <div class="frame"><div class="frame-tl"></div><div class="frame-br"></div></div>
+  <div class="hutao-wrap">
+    <img id="hutaoImg" src="hutao1.png" alt="Hu Tao" onerror="this.style.opacity='0'">
+  </div>
+  <div class="cake-wrap">
+    <div class="cake-top"></div>
+    <div class="cake-body"></div>
+    <div class="candle-stick">
+      <div class="flame-wrap" id="flameWrap">
+        <div class="flame-outer"></div>
+        <div class="flame-inner"></div>
+      </div>
+    </div>
+  </div>
+  <button class="genshin-btn" id="blowBtn" style="margin-top:24px;">Use Elemental Skill 🔥</button>
+  <p class="blow-note">Allow microphone access, then blow to extinguish the flame.</p>
+</div>
+
+<!-- SCREEN 3: WISH ANIMATION + CARD -->
+<div class="screen" id="screen3">
+  <!-- Starfield -->
+  <div class="wish-starfield" id="wishStarfield"></div>
+
+  <!-- Sweeping light -->
+  <div class="wish-light-sweep" id="wishLightSweep"></div>
+
+  <!-- Ribbons container -->
+  <div id="ribbonContainer" style="position:absolute;inset:0;z-index:3;pointer-events:none;"></div>
+
+  <!-- Burst rings container -->
+  <div id="ringContainer" style="position:absolute;inset:0;z-index:4;pointer-events:none;display:flex;align-items:center;justify-content:center;"></div>
+
+  <!-- Central orb -->
+  <div class="wish-orb" id="wishOrb"></div>
+
+  <!-- Card reveal -->
+  <div class="wish-reveal-wrap" id="wishRevealWrap">
+    <div class="wish-splash-bg" id="wishSplashBg"></div>
+    <div class="wish-card-outer" id="wishCardOuter">
+      <div class="wish-card">
+        <div class="wish-new-badge">✦ NEW</div>
+        <div class="wish-corner-gem tl"></div>
+        <div class="wish-corner-gem tr"></div>
+        <div class="wish-corner-gem bl"></div>
+        <div class="wish-corner-gem br"></div>
+        <div class="wish-rarity">
+          <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+        </div>
+        <div class="wish-element-icon">🔥</div>
+        <div class="wish-type">Pyro ✦ Birthday Celebrant</div>
+        <div class="wish-name">Arriya</div>
+        <div class="wish-sub">「The Sleepless Architect」</div>
+        <div class="wish-divider-line"></div>
+        <div class="wish-description">
+          A wielder of Pyro whose creative flame<br>
+          never dims. Known for designs that<br>
+          leave Teyvat breathless.<br><br>
+          <span style="color:var(--gold);font-style:normal;font-size:0.76rem;letter-spacing:0.1em;">✦ Passive: </span>
+          Gains +99 ATK when running on zero sleep.
+        </div>
+      </div>
+      <div class="wish-obtain" id="wishObtain">✦ &nbsp; Character Obtained &nbsp; ✦</div>
+      <button class="genshin-btn" id="wishNextBtn" style="margin-top:24px;display:none;" onclick="goToScreen(4)">Read Message ▶</button>
+    </div>
+  </div>
+</div>
+
+<!-- SCREEN 4: MESSAGE -->
+<div class="screen" id="screen4">
+  <div class="frame"><div class="frame-tl"></div><div class="frame-br"></div></div>
+  <div class="paimon-bubble">Emergency food... wait, no — this is actually heartfelt! 💗</div>
+  <div class="message-panel">
+    <div class="panel-header">
+      <div class="label">✦ Lore Scroll Unlocked ✦</div>
+      <h2>Happy Birthday 💗</h2>
+    </div>
+    <div id="finalText"></div>
+    <div class="wish-divider-line" style="margin-top:26px;"></div>
+    <div class="panel-footer"><div class="seal">✦</div></div>
+  </div>
+</div>
+
+<!-- Embers -->
+<script>
+for(let i=0;i<18;i++){
+  const e=document.createElement('div');
+  e.className='ember';
+  e.style.left=Math.random()*100+'vw';
+  e.style.width=e.style.height=(2+Math.random()*3)+'px';
+  e.style.animationDuration=(5+Math.random()*9)+'s';
+  e.style.animationDelay=Math.random()*9+'s';
+  e.style.opacity=0.25+Math.random()*0.4;
+  document.body.appendChild(e);
+}
+// Star particles
+for(let i=0;i<45;i++){
+  const s=document.createElement('div');
+  s.className='star-particle';
+  s.style.left=Math.random()*100+'vw';
+  s.style.bottom=Math.random()*100+'vh';
+  const sz=0.6+Math.random()*1.8;
+  s.style.width=s.style.height=sz+'px';
+  s.style.background=Math.random()>0.6?'rgba(240,192,96,0.7)':'rgba(180,210,255,0.5)';
+  s.style.animationDuration=(8+Math.random()*16)+'s';
+  s.style.animationDelay=Math.random()*12+'s';
+  document.body.appendChild(s);
+}
+</script>
+
+<script>
+/* ===== PARTICLE CANVAS ===== */
+const canvas = document.getElementById('particleCanvas');
+const ctx = canvas.getContext('2d');
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+window.addEventListener('resize',()=>{ canvas.width=window.innerWidth; canvas.height=window.innerHeight; });
+
+const particles=[];
+for(let i=0;i<55;i++){
+  particles.push({
+    x:Math.random()*canvas.width,
+    y:Math.random()*canvas.height,
+    r:0.5+Math.random()*1.5,
+    vx:(Math.random()-0.5)*0.25,
+    vy:-0.08-Math.random()*0.25,
+    alpha:0.08+Math.random()*0.3,
+    type:Math.random()
+  });
+}
+function drawParticles(){
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  particles.forEach(p=>{
+    ctx.beginPath();
+    ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+    if(p.type>0.6) ctx.fillStyle=`rgba(240,192,96,${p.alpha})`;
+    else if(p.type>0.3) ctx.fillStyle=`rgba(180,210,255,${p.alpha*0.6})`;
+    else ctx.fillStyle=`rgba(226,97,60,${p.alpha*0.4})`;
+    ctx.fill();
+    p.x+=p.vx; p.y+=p.vy;
+    if(p.y<-4){ p.y=canvas.height+4; p.x=Math.random()*canvas.width; }
+  });
+  requestAnimationFrame(drawParticles);
+}
+drawParticles();
+
+/* ===== LOADING ===== */
+window.addEventListener('load',()=>{
+  setTimeout(()=>{
+    document.getElementById('loadBar').style.width='100%';
+    setTimeout(()=>{
+      const ov=document.getElementById('loadOverlay');
+      ov.style.opacity='0';
+      setTimeout(()=>ov.remove(),1000);
+    },2000);
+  },300);
+});
+
+/* ===== SCREEN TRANSITIONS ===== */
+function goToScreen(n){
+  const wipe=document.getElementById('wipe');
+  wipe.classList.add('wipe-in');
+  setTimeout(()=>{
+    document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+    document.getElementById('screen'+n).classList.add('active');
+    wipe.classList.remove('wipe-in');
+    wipe.classList.add('wipe-out');
+    setTimeout(()=>wipe.classList.remove('wipe-out'),500);
+    if(n===3) triggerWishAnimation();
+    if(n===4) typeMessage();
+  },400);
+}
+
+/* ===== GENSHIN-STYLE WISH ANIMATION ===== */
+function triggerWishAnimation(){
+  const cx = window.innerWidth/2;
+  const cy = window.innerHeight/2;
+
+  // 1. Starfield canvas — shooting stars
+  spawnWishStars();
+
+  // 2. Light sweep from below
+  setTimeout(()=>{
+    document.getElementById('wishLightSweep').classList.add('active');
+  },200);
+
+  // 3. Ribbon trails spiral in
+  setTimeout(()=>{
+    spawnRibbons(cx, cy);
+  },400);
+
+  // 4. Orb appears at center and pulses
+  setTimeout(()=>{
+    const orb = document.getElementById('wishOrb');
+    orb.style.left = (cx-60)+'px';
+    orb.style.top  = (cy-60)+'px';
+    orb.style.position = 'absolute';
+    orb.style.transition = 'opacity 0.5s ease, transform 0.7s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.5s ease';
+    orb.style.opacity = '1';
+    orb.style.transform = 'scale(1)';
+  },900);
+
+  // 5. Orb expands burst
+  setTimeout(()=>{
+    const orb = document.getElementById('wishOrb');
+    orb.style.transform = 'scale(3)';
+    orb.style.opacity = '0';
+    spawnBurstRings(cx, cy);
+    spawnConfetti();
+  },1800);
+
+  // 6. Fade out ribbons + reveal card
+  setTimeout(()=>{
+    document.getElementById('ribbonContainer').style.opacity='0';
+    const wrap = document.getElementById('wishRevealWrap');
+    const splashBg = document.getElementById('wishSplashBg');
+    wrap.style.opacity = '1';
+    wrap.style.pointerEvents = 'auto';
+    splashBg.style.transition = 'opacity 0.8s ease';
+    splashBg.style.opacity = '1';
+    setTimeout(()=>{
+      document.getElementById('wishCardOuter').classList.add('show');
+      setTimeout(()=>{
+        document.getElementById('wishObtain').classList.add('show');
+        setTimeout(()=>{
+          document.getElementById('wishNextBtn').style.display='inline-block';
+        },900);
+      },700);
+    },200);
+  },2400);
+}
+
+/* Shooting stars on wish starfield */
+function spawnWishStars(){
+  const container = document.getElementById('wishStarfield');
+  // Add static stars first
+  for(let i=0;i<120;i++){
+    const dot = document.createElement('div');
+    dot.style.cssText = `
+      position:absolute;
+      left:${Math.random()*100}%;
+      top:${Math.random()*100}%;
+      width:${0.5+Math.random()*1.5}px;
+      height:${0.5+Math.random()*1.5}px;
+      border-radius:50%;
+      background:rgba(${Math.random()>0.5?'240,220,160':'180,200,255'},${0.3+Math.random()*0.6});
+      animation:starTwinkle ${1+Math.random()*3}s ease-in-out infinite;
+      animation-delay:${Math.random()*3}s;
+    `;
+    container.appendChild(dot);
+  }
+  // Shooting stars
+  for(let i=0;i<8;i++){
+    setTimeout(()=>{
+      const s=document.createElement('div');
+      const startX=Math.random()*100;
+      const startY=Math.random()*60;
+      const len=60+Math.random()*120;
+      const angle=-30+Math.random()*(-30);
+      s.style.cssText=`
+        position:absolute;
+        left:${startX}%;
+        top:${startY}%;
+        width:${len}px; height:1.5px;
+        background:linear-gradient(90deg, rgba(255,240,180,0.9), transparent);
+        transform:rotate(${angle}deg);
+        transform-origin:left center;
+        border-radius:999px;
+        opacity:0;
+        animation:shootingStar 0.7s ease-out forwards;
+      `;
+      container.appendChild(s);
+      setTimeout(()=>s.remove(),1200);
+    },i*180);
+  }
+}
+
+/* Ribbon trails */
+function spawnRibbons(cx,cy){
+  const container=document.getElementById('ribbonContainer');
+  container.style.opacity='1';
+  container.style.transition='opacity 0.5s ease';
+  const count=14;
+  for(let i=0;i<count;i++){
+    const angle=(360/count)*i;
+    const r=document.createElement('div');
+    r.className='wish-ribbon';
+    const len=120+Math.random()*180;
+    const dist=80+Math.random()*120;
+    const rad=angle*(Math.PI/180);
+    const bx=cx+Math.cos(rad)*dist;
+    const by=cy+Math.sin(rad)*dist;
+    r.style.cssText=`
+      position:absolute;
+      left:${bx}px; top:${by - len/2}px;
+      width:${1+Math.random()*2.5}px;
+      height:${len}px;
+      transform:rotate(${angle+90}deg);
+      transform-origin:center bottom;
+      background:linear-gradient(180deg,transparent,rgba(240,192,96,${0.4+Math.random()*0.4}),rgba(255,220,140,0.5),transparent);
+      border-radius:999px;
+      opacity:0;
+      animation:ribbonFloat ${0.6+Math.random()*0.4}s ease forwards ${i*60}ms;
+    `;
+    container.appendChild(r);
+  }
+}
+
+/* Burst rings */
+function spawnBurstRings(cx,cy){
+  const container=document.getElementById('ringContainer');
+  const sizes=[80,160,260,380,520];
+  sizes.forEach((sz,i)=>{
+    const ring=document.createElement('div');
+    ring.className='wish-ring';
+    ring.style.cssText=`
+      width:${sz}px; height:${sz}px;
+      position:absolute;
+      border:${i<2?'3px':'2px'} solid rgba(240,192,96,${0.7-i*0.1});
+      border-radius:50%;
+      animation:ringExpand 0.8s cubic-bezier(0.2,0.8,0.4,1) ${i*80}ms forwards;
+    `;
+    container.appendChild(ring);
+    setTimeout(()=>ring.remove(),1400);
+  });
+  // Golden spark burst
+  for(let i=0;i<30;i++){
+    const sp=document.createElement('div');
+    const angle=Math.random()*360;
+    const dist=80+Math.random()*200;
+    const rad=angle*(Math.PI/180);
+    sp.style.cssText=`
+      position:absolute;
+      width:${2+Math.random()*4}px;
+      height:${2+Math.random()*4}px;
+      border-radius:50%;
+      background:${Math.random()>0.4?'rgba(240,192,96,0.95)':'rgba(255,160,80,0.9)'};
+      box-shadow:0 0 6px rgba(240,192,96,0.8);
+      left:calc(50% + ${Math.cos(rad)*10}px);
+      top:calc(50% + ${Math.sin(rad)*10}px);
+      animation:sparkFly 0.9s cubic-bezier(0.2,0.9,0.4,1) forwards;
+      --tx:${Math.cos(rad)*dist}px;
+      --ty:${Math.sin(rad)*dist}px;
+    `;
+    container.appendChild(sp);
+    setTimeout(()=>sp.remove(),1200);
+  }
+}
+
+/* Confetti */
+function spawnConfetti(){
+  const colors=['#e2613c','#f0c060','#FFD780','#ff9060','#fff0d0','#a0c0ff','#c0e0ff'];
+  for(let i=0;i<90;i++){
+    const c=document.createElement('div');
+    c.className='confetti-piece';
+    c.style.left=Math.random()*100+'vw';
+    c.style.top='-10px';
+    c.style.background=colors[Math.floor(Math.random()*colors.length)];
+    c.style.setProperty('--drift',(Math.random()-0.5)*220+'px');
+    c.style.animationDuration=(1.5+Math.random()*2.2)+'s';
+    c.style.animationDelay=Math.random()*0.9+'s';
+    c.style.borderRadius=Math.random()>0.5?'50%':'2px';
+    document.body.appendChild(c);
+    setTimeout(()=>c.remove(),4500);
+  }
+}
+
+/* ===== BIRTHDAY MESSAGE ===== */
+const message=`Happy Birthday, Arriya 💗
+
+You're honestly one of the most talented people in this whole Teyvat — creating fire designs, drawing, grinding games, and somehow surviving on zero sleep.
+
+Like madame, your energy needs to be bottled and sold at the Liyue Harbor market, because HOW?? 💀
+
+I hope this year brings you rare 5-star moments, insane creative bursts, and at least one night where you actually discover what "going to bed early" feels like.
+
+Keep being you — cool, creative, and lowkey unstoppable.
+
+May your pity always be guaranteed. 🔥`;
+
+let typed=false;
+function typeMessage(){
+  if(typed)return;
+  typed=true;
+  let i=0;
+  const el=document.getElementById('finalText');
+  el.textContent='';
+  const id=setInterval(()=>{
+    if(i<message.length){el.textContent+=message[i++];}
+    else clearInterval(id);
+  },26);
+}
+
+/* ===== BLOW DETECTION ===== */
+document.getElementById('blowBtn').addEventListener('click',async()=>{
+  const btn=document.getElementById('blowBtn');
+  try{
+    const stream=await navigator.mediaDevices.getUserMedia({audio:true});
+    const ctx2=new(window.AudioContext||window.webkitAudioContext)();
+    const mic=ctx2.createMediaStreamSource(stream);
+    const analyser=ctx2.createAnalyser();
+    analyser.fftSize=256;
+    mic.connect(analyser);
+    const data=new Uint8Array(analyser.frequencyBinCount);
+    btn.textContent='Listening... 🎤';
+    btn.disabled=true;
+    let base=0,samples=0;
+    const cal=setInterval(()=>{
+      analyser.getByteFrequencyData(data);
+      base+=data.reduce((a,b)=>a+b,0)/data.length;
+      if(++samples>=20){
+        clearInterval(cal);
+        base/=samples;
+        detect();
+      }
+    },50);
+    function detect(){
+      analyser.getByteFrequencyData(data);
+      const vol=data.reduce((a,b)=>a+b,0)/data.length;
+      if(vol>base+60){
+        const fw=document.getElementById('flameWrap');
+        fw.style.opacity='0';
+        fw.style.transform='translateX(-50%) translateY(-20px) scale(0.2)';
+        document.getElementById('hutaoImg').src='hutao2.png';
+        stream.getTracks().forEach(t=>t.stop());
+        btn.textContent='Wish granted... ✦';
+        setTimeout(()=>goToScreen(3),1600);
+        return;
+      }
+      requestAnimationFrame(detect);
+    }
+  }catch(e){
+    // Fallback: just click to proceed
+    btn.textContent='Tap to make a wish ✦';
+    btn.disabled=false;
+    btn.onclick=()=>{
+      const fw=document.getElementById('flameWrap');
+      fw.style.opacity='0';
+      setTimeout(()=>goToScreen(3),800);
+    };
+  }
+});
+
+/* ===== MUSIC ===== */
+const music=new Audio('https://cdn.pixabay.com/download/audio/2022/03/15/audio_5f9b4fd54f.mp3?filename=happy-birthday-to-you-piano-version-14125.mp3');
+music.loop=true; music.volume=0.35;
+music.play().catch(()=>document.body.addEventListener('click',()=>music.play(),{once:true}));
+</script>
+
+<!-- Extra keyframe animations injected via style -->
+<style>
+@keyframes starTwinkle {
+  0%,100%{opacity:0.3; transform:scale(1);}
+  50%{opacity:1; transform:scale(1.4);}
+}
+@keyframes shootingStar {
+  0%  { opacity:0; transform:rotate(var(--a,-40deg)) translateX(0); }
+  15% { opacity:1; }
+  100%{ opacity:0; transform:rotate(var(--a,-40deg)) translateX(200px); }
+}
+@keyframes ribbonFloat {
+  0%  { opacity:0; transform:rotate(var(--r,0deg)) scaleY(0); }
+  60% { opacity:0.85; transform:rotate(var(--r,0deg)) scaleY(1.1); }
+  100%{ opacity:0.7; transform:rotate(var(--r,0deg)) scaleY(1); }
+}
+@keyframes ringExpand {
+  0%  { opacity:0.9; transform:scale(0.1); }
+  60% { opacity:0.5; }
+  100%{ opacity:0; transform:scale(1); }
+}
+@keyframes sparkFly {
+  0%  { opacity:1; transform:translate(0,0) scale(1); }
+  100%{ opacity:0; transform:translate(var(--tx),var(--ty)) scale(0); }
+}
+</style>
+</body>
+</html>
